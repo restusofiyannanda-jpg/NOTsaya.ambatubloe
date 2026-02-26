@@ -6,7 +6,7 @@ let board=[], piece=null, pos=null;
 let score=0, interval=null;
 
 // AUDIO
-let bgMusic = new Audio("https://actions.google.com/sounds/v1/ambiences/arcade_background.ogg");
+let bgMusic = new Audio("https://ia800905.us.archive.org/15/items/TetrisThemeMusic/Tetris.mp3");
 bgMusic.loop = true;
 bgMusic.volume = 1;
 

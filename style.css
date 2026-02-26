@@ -1,0 +1,48 @@
+body{
+    margin:0;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    font-family:Arial;
+    text-align:center;
+    color:white;
+}
+
+canvas{
+    background:#111;
+    border:3px solid cyan;
+    box-shadow:0 0 20px cyan;
+    touch-action:none;
+}
+
+button{
+    padding:10px 16px;
+    margin:5px;
+    border:none;
+    border-radius:8px;
+    background:cyan;
+    font-weight:bold;
+}
+
+button:active{
+    transform:scale(0.95);
+}
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:rgba(0,0,0,0.9);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.hidden{
+    display:none;
+}
+
+.controls{
+    margin-top:10px;
+}

@@ -1,0 +1,38 @@
+DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tetris Legend Final</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="menu" class="overlay">
+<h1>🔥 TETRIS LEGEND</h1>
+<button onclick="startGame()">START GAME</button>
+</div>
+
+<div id="gameOver" class="overlay hidden">
+<h1>GAME OVER</h1>
+<p id="finalScore"></p>
+<button onclick="startGame()">MAIN LAGI</button>
+</div>
+
+<h3>Score: <span id="score">0</span></h3>
+
+<canvas id="game" width="240" height="400"></canvas>
+
+<div class="controls">
+<button onclick="move(-1)">⬅️</button>
+<button onclick="rotate()">🔄</button>
+<button onclick="move(1)">➡️</button>
+<button onclick="drop()">⬇️</button>
+<button onclick="toggleMusic()">🎵</button>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

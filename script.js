@@ -6,13 +6,17 @@ let board=[], piece=null, pos=null;
 let score=0, interval=null;
 
 // AUDIO
-let bgMusic = new Audio("https://ia800905.us.archive.org/15/items/TetrisThemeMusic/Tetris.mp3");
+// BACKGROUND MUSIC TETRIS (Korobeiniki)
+let bgMusic = new Audio("https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Various_Artists/Tetris_Soundtrack/Various_Artists_-_Korobeiniki.mp3");
+
 bgMusic.loop = true;
-bgMusic.volume =0.6;
+bgMusic.volume = 0.5;
 
 function startMusic(){
     bgMusic.currentTime = 0;
-    bgMusic.play().catch(()=>{});
+    bgMusic.play().catch(() => {
+        console.log("Autoplay diblokir browser, klik layar dulu.");
+    });
 }
 
 function toggleMusic(){

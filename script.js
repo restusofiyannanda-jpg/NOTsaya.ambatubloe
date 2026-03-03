@@ -3,20 +3,23 @@ const canvas=document.getElementById("game");
 const ctx=canvas.getContext("2d");
 
 let board=[], piece=null, pos=null;
+let level = 1;
 let score=0, interval=null;
+let highScore = localStorage.getItem("tetrisHighScore") || 0;
 
-// AUDIO
-// BACKGROUND MUSIC TETRIS (Korobeiniki)
-let bgMusic = new Audio("https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Various_Artists/Tetris_Soundtrack/Various_Artists_-_Korobeiniki.mp3");
+// AUDIOlet bgMusic;
 
-bgMusic.loop = true;
-bgMusic.volume = 0.5;
+function initMusic(){
+    bgMusic = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.6;
+}
 
 function startMusic(){
-    bgMusic.currentTime = 0;
-    bgMusic.play().catch(() => {
-        console.log("Autoplay diblokir browser, klik layar dulu.");
-    });
+    if(bgMusic){
+        bgMusic.currentTime = 0;
+        bgMusic.play().catch(e => console.log("Autoplay diblokir:", e));
+    }
 }
 
 function toggleMusic(){
@@ -139,9 +142,23 @@ function clearLines(){
             board.splice(r,1);
             board.unshift(Array(COL).fill(""));
 
-            score+=100;
+            score += 100;
+            document.getElementById("score").innerText = score;
 
-            document.getElementById("score").innerText=score;
+            // LEVEL SYSTEM
+            let newLevel = Math.floor(score / 500) + 1;
+
+            if(newLevel > level){
+                level = newLevel;
+                document.getElementById("level").innerText = level;
+
+                clearInterval(interval);
+
+                let newSpeed = 600 - (level * 50);
+                if(newSpeed < 100) newSpeed = 100;
+
+                interval = setInterval(drop, newSpeed);
+            }
 
             r++;
         }
@@ -190,12 +207,18 @@ function rotate(){
 }
 
 function startGame(){
-
+  
+    initMusic();
+    startMusic();
+    
     document.getElementById("menu").classList.add("hidden");
     document.getElementById("gameOver").classList.add("hidden");
 
     score=0;
     document.getElementById("score").innerText=0;
+    level = 1;
+document.getElementById("level").innerText = level;
+    document.getElementById("highScore").innerText = highScore;
 
     initBoard();
 
@@ -205,7 +228,7 @@ function startGame(){
 
     clearInterval(interval);
 
-    interval=setInterval(drop,800);
+    interval=setInterval(drop,600);
 
     startMusic();
 
@@ -216,9 +239,22 @@ function endGame(){
 
     clearInterval(interval);
 
-    bgMusic.pause();
+    if(bgMusic){
+        bgMusic.pause();
+    }
 
-    document.getElementById("finalScore").innerText="Score kamu: "+score;
+    let newHighText = document.getElementById("newHigh");
+    newHighText.style.display = "none";
+
+    // CEK HIGH SCORE
+    if(score > highScore){
+        highScore = score;
+        localStorage.setItem("tetrisHighScore", highScore);
+        newHighText.style.display = "block"; // tampilkan tulisan
+    }
+
+    document.getElementById("finalScore").innerText = "Score kamu: " + score;
+    document.getElementById("highScore").innerText = highScore;
 
     document.getElementById("gameOver").classList.remove("hidden");
 }
